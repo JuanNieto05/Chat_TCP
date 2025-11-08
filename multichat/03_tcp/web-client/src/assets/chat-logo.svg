@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Chat bubble -->
+  <g>
+    <path d="M 60 50 Q 30 50 30 80 L 30 120 Q 30 150 60 150 L 70 150 L 60 170 L 85 150 L 140 150 Q 170 150 170 120 L 170 80 Q 170 50 140 50 Z" 
+          fill="none" stroke="#00A884" stroke-width="8" stroke-linejoin="round"/>
+    <!-- Three dots inside -->
+    <circle cx="70" cy="100" r="8" fill="#00A884"/>
+    <circle cx="100" cy="100" r="8" fill="#00A884"/>
+    <circle cx="130" cy="100" r="8" fill="#00A884"/>
+  </g>
+</svg>

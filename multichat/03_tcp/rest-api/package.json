@@ -1,0 +1,18 @@
+{
+  "name": "chat-rest-api",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "keywords": ["chat", "rest", "tcp"],
+  "author": "",
+  "license": "ISC",
+  "description": "REST API for TCP Chat Server",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
