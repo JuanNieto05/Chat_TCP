@@ -1,0 +1,12 @@
+[build]
+builder = "nixpacks"
+buildCommand = "./gradlew :server:build"
+
+[deploy]
+startCommand = "./gradlew :server:run"
+
+[service]
+port = 10000
+
+[env]
+JAVA_VERSION = "21"

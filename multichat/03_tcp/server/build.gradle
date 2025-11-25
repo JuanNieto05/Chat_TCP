@@ -1,7 +1,7 @@
 
-
 plugins { 
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1' // AGREGAR esto
 }
 
 application { 
@@ -21,6 +21,20 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.0'
     implementation 'com.zeroc:ice:3.7.10'
     implementation 'org.java-websocket:Java-WebSocket:1.5.4'
+}
+
+// AGREGAR estas tareas para Railway
+tasks.named('build') {
+    dependsOn shadowJar
+}
+
+shadowJar {
+    archiveBaseName.set('server')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+    manifest {
+        attributes 'Main-Class': 'ui.Main'
+    }
 }
 
 test {
