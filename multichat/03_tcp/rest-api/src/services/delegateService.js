@@ -1,7 +1,8 @@
 import net from 'net';
 
-const HOST = 'localhost';
-const PORT = 12345;
+// CONFIGURACIÓN PARA PRODUCCIÓN
+const HOST = process.env.BACKEND_HOST || 'localhost';
+const PORT = process.env.BACKEND_PORT || 12345;
 
 /**
  * Send request to Java TCP-JSON server
@@ -16,7 +17,7 @@ const sendRequest = (action, data) => {
         data: data,
       };
       const reqStr = JSON.stringify(request);
-      console.log('[delegateService] Sending TCP request → action:', action, 'data:', data);
+      console.log('[delegateService] Sending TCP request → action:', action, 'data:', data, 'to:', `${HOST}:${PORT}`);
       socket.write(reqStr);
       socket.write('\n');
 
@@ -74,9 +75,9 @@ const sendRequest = (action, data) => {
     });
 
     socket.on('error', (err) => {
+      console.error('[delegateService] TCP connection error:', err.message);
       reject(err);
     });
-    // ensure all errors/timeouts are captured -- the 'timeout' handler is added per connection
   });
 };
 

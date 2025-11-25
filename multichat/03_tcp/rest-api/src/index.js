@@ -174,7 +174,13 @@ app.post('/api/admin/cleanup', async (req, res) => {
   }
 });
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'REST API is running' });
+});
+
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`[REST-API] Server listening on port ${PORT}`);
+  console.log(`[REST-API] Environment: ${process.env.NODE_ENV || 'development'}`);
 });
