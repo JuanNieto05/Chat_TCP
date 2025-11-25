@@ -7,14 +7,17 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// DETECTAR SI ESTAMOS EN PRODUCCIÓN
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default {
-  mode: 'development',
+  mode: isProduction ? 'production' : 'development',
   // Usamos una sola entrada y el CSS se importa desde index.js
   entry: './index.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '',
+    publicPath: isProduction ? '/' : '', // IMPORTANTE: cambiar para producción
   },
   resolve: {
     fallback: {
@@ -75,14 +78,29 @@ export default {
       ]
     })
   ],
-  devServer: {
-    static: {
-      directory: path.join(__dirname, './'),
+  // SOLO para desarrollo local
+  ...(isProduction ? {} : {
+    devServer: {
+      static: {
+        directory: path.join(__dirname, './'),
+      },
+      historyApiFallback: true,
+      compress: true,
+      port: 3000,
+      hot: true,
+      open: false, // Prevent auto-opening browser
     },
-    historyApiFallback: true,
-    compress: true,
-    port: 3000,
-    hot: true,
-    open: false, // Prevent auto-opening browser
-  },
+  }),
+  
+  // OPTIMIZACIONES PARA PRODUCCIÓN
+  ...(isProduction ? {
+    optimization: {
+      minimize: true,
+    },
+    performance: {
+      hints: 'warning',
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000
+    }
+  } : {})
 };
