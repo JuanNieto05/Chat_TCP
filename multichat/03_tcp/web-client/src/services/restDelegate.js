@@ -4,10 +4,16 @@
  * El proxy delega al backend Java TCP (puerto 12345)
  */
 
+console.log('restDelegate.js loaded - Checking environment');
+console.log('Current hostname:', window.location.hostname);
+console.log('Is Railway?', window.location.hostname.includes('railway'));
+
 const API_BASE_URL = window.location.hostname.includes('railway') 
   ? 'https://rest-api-production-bab1.up.railway.app/api'
   : 'http://localhost:5001/api';
 
+console.log('Final API URL:', API_BASE_URL);
+console.log('restDelegate.js configured');
 /**
  * Login de usuario
  * @param {string} username 
