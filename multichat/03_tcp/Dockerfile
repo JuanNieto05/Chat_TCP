@@ -8,10 +8,10 @@ COPY . .
 # Dar permisos de ejecución a gradlew
 RUN chmod +x ./gradlew
 
-# Instalar dependencias y construir (saltar tests temporalmente)
-RUN ./gradlew :server:build -x test
+# Limpiar y construir
+RUN ./gradlew clean :server:build -x test
 
-# Exponer SOLO el puerto principal ICE
+# Exponer puerto ICE
 EXPOSE 10000
 
 # Comando de inicio

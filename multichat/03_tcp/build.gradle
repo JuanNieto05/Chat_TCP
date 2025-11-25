@@ -1,11 +1,22 @@
-[build]
-builder = "dockerfile"
+plugins {
+    id 'java'
+}
 
-[deploy]
-startCommand = "./gradlew :server:run"
+allprojects {
+    repositories { 
+        mavenCentral() 
+    }
+}
 
-[service]
-port = 10000
-
-[env]
-JAVA_HOME = "/usr/local/openjdk-21"
+subprojects {
+    apply plugin: 'java'
+    
+    // CORREGIR: Eliminar toolchain problemático
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+        options.release = 21
+    }
+}
