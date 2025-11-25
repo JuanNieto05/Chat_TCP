@@ -1,7 +1,6 @@
-
 plugins { 
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '8.1.1' // AGREGAR esto
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 application { 
@@ -14,27 +13,23 @@ repositories {
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
-    
-    // JUnit 5 para tests
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.0'
     implementation 'com.zeroc:ice:3.7.10'
     implementation 'org.java-websocket:Java-WebSocket:1.5.4'
+    
+    // Tests
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
 
-// AGREGAR estas tareas para Railway
-tasks.named('build') {
-    dependsOn shadowJar
-}
-
-shadowJar {
-    archiveBaseName.set('server')
-    archiveClassifier.set('')
-    archiveVersion.set('')
+// CONFIGURACIÓN PARA JAR EJECUTABLE
+jar {
     manifest {
         attributes 'Main-Class': 'ui.Main'
     }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 test {

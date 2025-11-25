@@ -8,9 +8,13 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
-    java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+    
+    // CAMBIA ESTO: Elimina toolchain y usa Java directamente
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    
     tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
         options.release = 21
     }
-    tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
 }
