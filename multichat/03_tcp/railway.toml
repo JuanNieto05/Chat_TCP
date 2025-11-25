@@ -1,12 +1,8 @@
 [build]
-builder = "nixpacks"
-buildCommand = "./gradlew :server:build -x test"  # -x test para saltar tests temporalmente
+builder = "dockerfile"
 
 [deploy]
-startCommand = "cd server && java -cp build/libs/server.jar ui.Main"
+startCommand = "./gradlew :server:run"
 
 [service]
 port = 10000
-
-[env]
-JAVA_VERSION = "21"
