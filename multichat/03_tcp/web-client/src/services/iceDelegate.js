@@ -44,7 +44,9 @@ console.log('[iceDelegate] window.Ice._require available:', !!(window.Ice && win
 console.log('[iceDelegate] window.chat available:', !!window.chat);
 console.log('[iceDelegate] chat.ChatServicePrx available:', !!(chat && chat.ChatServicePrx));
 
-const HOSTNAME = 'localhost';
+const HOSTNAME = process.env.NODE_ENV === 'production' 
+  ? 'backend-production-7a397.up.railway.app' 
+  : 'localhost';
 const ICE_PORT = 10000;
 
 let communicator = null;

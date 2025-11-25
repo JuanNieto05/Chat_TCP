@@ -4,7 +4,9 @@
  * El proxy delega al backend Java TCP (puerto 12345)
  */
 
-const API_BASE_URL = 'http://localhost:5001/api';
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://rest-api-production-bab1.up.railway.app/api'
+  : 'http://localhost:5001/api';
 
 /**
  * Login de usuario

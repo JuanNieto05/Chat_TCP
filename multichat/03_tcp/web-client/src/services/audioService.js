@@ -6,7 +6,9 @@
 import { startCallViaICE, sendMessageViaICE } from './iceDelegate.js';
 import * as WebRTCService from './webrtcService.js';
 
-const AUDIO_WS_URL = `ws://${window.location.hostname || 'localhost'}:8888`;
+const AUDIO_WS_URL = process.env.NODE_ENV === 'production' 
+  ? `wss://backend-production-7a397.up.railway.app`
+  : `ws://${window.location.hostname || 'localhost'}:8888`;
 let ws = null;
 let currentCall = null; // { target: string, peerConnection: null, stream: null }
 let localStream = null;
