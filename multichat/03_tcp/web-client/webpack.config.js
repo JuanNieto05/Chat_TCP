@@ -12,12 +12,11 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 export default {
   mode: isProduction ? 'production' : 'development',
-  // Usamos una sola entrada y el CSS se importa desde index.js
   entry: './index.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: isProduction ? '/' : '', // IMPORTANTE: cambiar para producción
+    publicPath: '/', // SIEMPRE usar root path
   },
   resolve: {
     fallback: {
@@ -74,33 +73,31 @@ export default {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'src/services/ChatService.js', to: 'src/services/ChatService.js' }
+        { 
+          from: 'src/services/ChatService.js', 
+          to: 'src/services/ChatService.js' 
+        }
       ]
     })
   ],
-  // SOLO para desarrollo local
-  ...(isProduction ? {} : {
-    devServer: {
-      static: {
-        directory: path.join(__dirname, './'),
-      },
-      historyApiFallback: true,
-      compress: true,
-      port: 3000,
-      hot: true,
-      open: false, // Prevent auto-opening browser
+  // CONFIGURACIÓN MEJORADA PARA PRODUCCIÓN
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'), // SERVIR DESDE DIST
     },
-  }),
+    historyApiFallback: true,
+    compress: true,
+    port: 3000,
+    hot: true,
+    open: false,
+  },
   
-  // OPTIMIZACIONES PARA PRODUCCIÓN
-  ...(isProduction ? {
-    optimization: {
-      minimize: true,
-    },
-    performance: {
-      hints: 'warning',
-      maxEntrypointSize: 512000,
-      maxAssetSize: 512000
-    }
-  } : {})
+  optimization: {
+    minimize: isProduction,
+  },
+  performance: {
+    hints: isProduction ? 'warning' : false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  }
 };

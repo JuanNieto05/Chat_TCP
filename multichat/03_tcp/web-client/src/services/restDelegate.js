@@ -4,16 +4,11 @@
  * El proxy delega al backend Java TCP (puerto 12345)
  */
 
-console.log('restDelegate.js loaded - Checking environment');
-console.log('Current hostname:', window.location.hostname);
-console.log('Is Railway?', window.location.hostname.includes('railway'));
+console.log('restDelegate.js LOADED - PRODUCTION VERSION');
 
-const API_BASE_URL = window.location.hostname.includes('railway') 
-  ? 'https://rest-api-production-bab1.up.railway.app/api'
-  : 'http://localhost:5001/api';
-
-console.log('Final API URL:', API_BASE_URL);
-console.log('restDelegate.js configured');
+// URL FIJA - ELIMINAR DETECCIÓN COMPLEJA
+const API_BASE_URL = 'https://rest-api-production-bab1.up.railway.app/api';
+console.log(' API URL SET TO:', API_BASE_URL);
 /**
  * Login de usuario
  * @param {string} username 
