@@ -4,9 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "webpack",
-    "start": "webpack serve",
-    "dev": "webpack --mode development --watch"
+    "build": "webpack --mode production",
+    "start": "npx serve -s dist -p $PORT",
+    "dev": "webpack serve"
   },
   "author": "",
   "license": "ISC",
@@ -27,5 +27,8 @@
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

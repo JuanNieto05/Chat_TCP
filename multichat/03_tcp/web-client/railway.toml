@@ -1,0 +1,13 @@
+[build]
+builder = "nixpacks"
+buildCommand = "npm install && npm run build"
+
+[deploy]
+startCommand = "npx serve -s dist -p $PORT"
+
+[[static]]
+source = "dist"
+target = "/"
+
+[env]
+NODE_ENV = "production"
